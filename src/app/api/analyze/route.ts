@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { CreateChatCompletionVisionBody } from "z-ai-web-dev-sdk";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,7 +13,6 @@ export async function POST(req: NextRequest) {
     const zai = await ZAI.create();
 
     const response = await zai.chat.completions.createVision({
-      model: "glm-5v-turbo",
       messages: [
         {
           role: "user",
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       thinking: { type: "disabled" },
-    });
+    } as CreateChatCompletionVisionBody);
 
     const responseText = response.choices[0]?.message?.content || "";
 
